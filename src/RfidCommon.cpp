@@ -19,7 +19,7 @@ char gOldRfidTagId[cardIdStringSize] = "X"; // Init with crap
 #endif
 
 // check if we have RFID-reader enabled
-#if defined(RFID_READER_TYPE_MFRC522_SPI) || defined(RFID_READER_TYPE_MFRC522_I2C) || defined(RFID_READER_TYPE_PN5180)
+#if defined(RFID_READER_TYPE_MFRC522_SPI) || defined(RFID_READER_TYPE_MFRC522_I2C) || defined(RFID_READER_TYPE_PN5180) || defined(RFID_READER_TYPE_PN532_SPI) || defined(RFID_READER_TYPE_PN532_I2C)
 	#define RFID_READER_ENABLED 1
 #endif
 

@@ -33,11 +33,16 @@
         #define MFRC522_RST_PIN                 12          // needed for initialisation -> MTDI on JTAG header
     #endif
 
+    #if defined (RFID_READER_TYPE_PN5180) || defined (RFID_READER_TYPE_PN532_I2C)
+        #define RFID_IRQ                        99          // Not necessary but has to be set anyway; so let's use a dummy-number
+    #endif
+
     // I2C-configuration (necessary for RC522 [only via i2c - not spi!] or port-expander)
     #ifdef I2C_2_ENABLE
         #define ext_IIC_CLK                 23          // i2c-SCL (clock) [14 pin-header]
         #define ext_IIC_DATA                18          // i2c-SDA (data) [14 pin-header]
     #endif
+
 
     // I2S (DAC)
     #define I2S_DOUT                        25          // Digital out (I2S)
@@ -59,25 +64,25 @@
     #endif
 
     // Control-buttons (set to 99 to DISABLE; 0->39 for GPIO; 100->115 for port-expander)
-    #define NEXT_BUTTON                     99          // Button 0: GPIO to detect next
-    #define PREVIOUS_BUTTON                 99          // Button 1: GPIO to detect previous
-    #define PAUSEPLAY_BUTTON                36          // Button 2: GPIO to detect pause/play
-    #define ROTARYENCODER_BUTTON            99          // (set to 99 to disable; 0->39 for GPIO; 100->115 for port-expander)
-    #define BUTTON_4                        99          // Button 4: unnamed optional button
-    #define BUTTON_5                        99          // Button 5: unnamed optional button
+    #define NEXT_BUTTON                     100          // Button 0: GPIO to detect next
+    #define PREVIOUS_BUTTON                 102          // Button 1: GPIO to detect previous
+    #define PAUSEPLAY_BUTTON                101          // Button 2: GPIO to detect pause/play
+    #define ROTARYENCODER_BUTTON            104          // (set to 99 to disable; 0->39 for GPIO; 100->115 for port-expander)
+    #define BUTTON_4                        105          // Button 4: unnamed optional button
+    #define BUTTON_5                        106          // Button 5: unnamed optional button
 
     //#define BUTTONS_LED                   114         // Powers the LEDs of the buttons. Make sure the current consumed by the LEDs can be handled by the used GPIO
 
     // Channels of port-expander can be read cyclic or interrupt-driven. It's strongly recommended to use the interrupt-way!
     // Infos: https://forum.espuino.de/t/einsatz-des-port-expanders-pca9555/306
     #ifdef PORT_EXPANDER_ENABLE
-        #define PE_INTERRUPT_PIN            99          // GPIO that is used to receive interrupts from port-expander
+        #define PE_INTERRUPT_PIN            13          // GPIO that is used to receive interrupts from port-expander
     #endif
 
     // Wake-up button => this also is the interrupt-pin if port-expander is enabled!
     // Please note: only RTC-GPIOs (0, 4, 12, 13, 14, 15, 25, 26, 27, 32, 33, 34, 35, 36, 39, 99) can be used! Set to 99 to DISABLE.
     // Please note #2: this button can be used as interrupt-pin for port-expander. If so, all pins connected to port-expander can wake up ESPuino.
-    #define WAKEUP_BUTTON                   PAUSEPLAY_BUTTON // Defines the button that is used to wake up ESPuino from deepsleep.
+    #define WAKEUP_BUTTON                   99 //PE_INTERRUPT_PIN          // Defines the button that is used to wake up ESPuino from deepsleep.
 
     // Power-control
     #define POWER                           19          // GPIO used to drive transistor-circuit, that switches off peripheral devices while ESP32-deepsleep
@@ -87,7 +92,7 @@
 
     // (optional) Neopixel
     #if defined(NEOPIXEL_ENABLE)
-        #define LED_PIN                     23          // GPIO for Neopixel-signaling
+        #define LED_PIN                     5          // GPIO for Neopixel-signaling
     #endif
 
     // (optinal) Headphone-detection
